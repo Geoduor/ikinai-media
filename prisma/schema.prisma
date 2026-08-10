@@ -1,0 +1,88 @@
+// Prisma schema for Ikinai Media Creatives
+// Production datasource: Postgres (Supabase or Neon), set via DATABASE_URL.
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model AdminUser {
+  id           String   @id @default(cuid())
+  email        String   @unique
+  passwordHash String
+  name         String
+  createdAt    DateTime @default(now())
+}
+
+model Post {
+  id          String    @id @default(cuid())
+  title       String
+  slug        String    @unique
+  excerpt     String
+  body        String // rich text / markdown
+  coverImage  String?
+  category    String // News | Podcast | Documentary | Event Recap
+  published   Boolean   @default(false)
+  publishedAt DateTime?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model PortfolioItem {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  mediaType   String // image | video
+  mediaUrl    String // image path or YouTube/Vimeo URL
+  serviceTag  String // links to a Service name
+  featured    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+}
+
+model Service {
+  id          String @id @default(cuid())
+  name        String
+  description String
+  order       Int    @default(0)
+}
+
+model PartnershipPackage {
+  id       String   @id @default(cuid())
+  tier     String // Platinum | Diamond | Gold
+  priceKsh Int
+  benefits String // newline-separated benefits
+  order    Int      @default(0)
+}
+
+model TeamMember {
+  id        String  @id @default(cuid())
+  name      String
+  role      String
+  bio       String
+  photoUrl  String?
+  order     Int     @default(0)
+}
+
+model ContactSubmission {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model SiteSettings {
+  id            String @id @default("singleton")
+  phone         String @default("+254 704 107 373")
+  email         String @default("ikinaimedia@gmail.com")
+  address       String @default("TARDA Godown, Dundori Road, South B, Nairobi")
+  youtubeUrl    String @default("https://youtube.com/@ikinaimediacreatives")
+  xUrl          String @default("https://x.com/IkinaiMedia")
+  instagramUrl  String @default("https://www.instagram.com/ikinaimedia")
+}
