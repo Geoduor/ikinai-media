@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "Portfolio" };
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function PortfolioPage() {
   const items = await prisma.portfolioItem.findMany({ orderBy: { createdAt: "desc" } });

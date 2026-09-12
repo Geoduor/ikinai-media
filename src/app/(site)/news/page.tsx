@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 
 export const metadata: Metadata = { title: "News" };
 export const dynamic = "force-dynamic";
+export const revalidate = 0;
 
 export default async function NewsPage() {
   const posts = await prisma.post.findMany({
