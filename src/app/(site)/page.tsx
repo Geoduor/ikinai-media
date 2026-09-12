@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Eyebrow, Section } from "@/components/ui";
-import { services, packages, mission, brand } from "@/lib/site-data";
+import { services, mission, brand } from "@/lib/site-data";
 import { prisma } from "@/lib/prisma";
 import { HeroSlideshow } from "./HeroSlideshow";
 
@@ -100,33 +100,6 @@ export default async function HomePage() {
             </div>
           ))}
         </div>
-      </Section>
-
-      {/* Partnership packages */}
-      <Section tone="ink">
-        <Eyebrow>Partner with us</Eyebrow>
-        <h2 className="mt-3 font-display text-3xl md:text-4xl">Partnership packages</h2>
-        <div className="mt-10 grid gap-6 md:grid-cols-3">
-          {packages.map((p) => (
-            <div key={p.tier} className="rounded-2xl border border-paper/15 p-6">
-              <p className="font-mono text-[12px] uppercase tracking-wider text-signal">{p.tier}</p>
-              <p className="mt-2 font-display text-2xl">
-                KSh {p.priceKsh.toLocaleString()}
-              </p>
-              <ul className="mt-5 space-y-2 text-sm text-paper/75">
-                {p.benefits.slice(0, 3).map((b) => (
-                  <li key={b}>— {b}</li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-        <Link
-          href="/partnerships"
-          className="mt-8 inline-block rounded-full bg-signal px-6 py-3 font-mono text-[12px] uppercase tracking-wider text-ink transition hover:bg-paper"
-        >
-          See full package details
-        </Link>
       </Section>
     </>
   );
