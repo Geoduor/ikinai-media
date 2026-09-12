@@ -1,8 +1,24 @@
 import Link from "next/link";
 import { Eyebrow, Section } from "@/components/ui";
 import { services, packages, mission, brand } from "@/lib/site-data";
+import { prisma } from "@/lib/prisma";
+import { HeroSlideshow } from "./HeroSlideshow";
 
-export default function HomePage() {
+// Pulls real portfolio images for the hero slideshow, so this stays fresh
+// as new work is added via the admin — same caching fix as the Portfolio/
+// News pages (Next.js 16 changed caching semantics; dynamic alone isn't
+// enough, revalidate = 0 is needed too).
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+
+export default async function HomePage() {
+  const heroImages = await prisma.portfolioItem.findMany({
+    where: { mediaType: "image" },
+    orderBy: [{ featured: "desc" }, { createdAt: "desc" }],
+    take: 8,
+    select: { mediaUrl: true },
+  });
+
   return (
     <>
       {/* Hero */}
@@ -38,9 +54,10 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="viewfinder aspect-[4/5] w-full bg-ink">
+          <div className="viewfinder relative aspect-[4/5] w-full overflow-hidden bg-ink">
+            <HeroSlideshow images={heroImages.map((i) => i.mediaUrl)} />
             <span className="vf-tl" /><span className="vf-tr" /><span className="vf-bl" /><span className="vf-br" />
-            <div className="flex h-full flex-col justify-between p-6 text-paper">
+            <div className="relative flex h-full flex-col justify-between p-6 text-paper">
               <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider">
                 <span className="on-air-dot" style={{ background: "var(--signal)" }} />
                 Rec
