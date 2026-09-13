@@ -56,10 +56,10 @@ export function Footer() {
                   href={p.url}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-3 rounded-xl bg-paper px-4 py-2 transition hover:opacity-80"
+                  className="flex items-center gap-3 rounded-xl border border-paper/15 bg-paper/10 px-5 py-3 transition hover:bg-paper/15"
                 >
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={p.logo} alt={p.name} className="h-9 w-auto" />
+                  <img src={p.logo} alt={p.name} className="h-14 w-auto" />
                 </a>
               ))}
             </div>
