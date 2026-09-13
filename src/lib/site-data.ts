@@ -139,3 +139,14 @@ export const affiliations = [
   "Latewa CBO",
   "Ngori Media",
 ];
+
+// Featured partners shown with logos (footer, etc.) — distinct from the
+// plain-text affiliations above. Only add entries here with a real,
+// supplied logo file.
+export const partners = [
+  {
+    name: "Off Pitch Africa",
+    logo: "/partners/off-pitch-africa.png",
+    url: "https://www.instagram.com/offpitchafrica/",
+  },
+];

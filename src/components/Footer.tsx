@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "./Logo";
-import { contact, brand } from "@/lib/site-data";
+import { contact, brand, partners } from "@/lib/site-data";
 
 export function Footer() {
   return (
@@ -44,6 +44,29 @@ export function Footer() {
           </ul>
         </div>
       </div>
+
+      {partners.length > 0 && (
+        <div className="border-t border-paper/10 px-6 py-8">
+          <div className="mx-auto max-w-6xl">
+            <p className="font-mono text-[11px] uppercase tracking-wider text-paper/50">Partners</p>
+            <div className="mt-4 flex flex-wrap items-center gap-6">
+              {partners.map((p) => (
+                <a
+                  key={p.name}
+                  href={p.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex items-center gap-3 rounded-xl bg-paper px-4 py-2 transition hover:opacity-80"
+                >
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img src={p.logo} alt={p.name} className="h-9 w-auto" />
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       <div className="border-t border-paper/10 px-6 py-5 text-center font-mono text-[11px] uppercase tracking-wider text-paper/50">
         © {new Date().getFullYear()} Ikinai Media. All rights reserved.
       </div>
